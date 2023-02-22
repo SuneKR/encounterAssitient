@@ -4,6 +4,7 @@ import router from "./router";
 import canvasTintImage from "canvas-tint-image"
 import getCanvasContext from "get-canvas-context"
 import AsyncPreloader from "async-preloader"
+import DragSelect from "dragselect";
 
 import "./assets/main.css";
 
@@ -64,7 +65,21 @@ canvas.addEventListener('click', () => {
             token.deselect()
         }
     })
+    /*
+    if(window.event.key != "Shift") {
+        multiSelect = false
+    }
+    */
     update()
+})
+
+canvas.addEventListener('mousedown', () => {
+    
+    const selectedTokens = new DragSelect({        
+        selectables: document.querySelectorAll('.token'),
+    })
+
+    selectedTokens.subscribe('callback', (e) => console.log(e))
 })
 
 
@@ -113,7 +128,7 @@ function multiSelectLater(){  multiSelect = false  }
 class Token{
     tokenImage = new Image()
 
-    constructor(imageSource,gridX = Math.floor(Math.random() * canvas.cellInWidth),gridY = Math.floor(Math.random() * canvas.cellInHeight),tokenSize=1){
+    constructor(imageSource, gridX = (Math.floor(Math.random()*canvas.cellInWidth)-1), gridY = (Math.floor(Math.random()*canvas.cellInHeight)-1), tokenSize = 1){
         this.tokenImage.src = "../tokens/" + imageSource + ".png" 
         this.gridX = gridX
         this.gridY = gridY
@@ -126,9 +141,8 @@ class Token{
         (async () => {
             let actualImage = await AsyncPreloader.loadImage(this.tokenImage)
             if(this.selected) {  actualImage = canvasTintImage(actualImage, "#00ff00", 0.5)  }
-            context.drawImage(actualImage, this.gridX*cellSize, (Math.floor(canvas.height/cellSize)-(this.gridY+1))*cellSize, this.tokenSize*cellSize, this.tokenSize*cellSize)
+            context.drawImage(actualImage, this.gridX*cellSize, (canvas.cellInHeight-(this.gridY+1))*cellSize, this.tokenSize*cellSize, this.tokenSize*cellSize)
         })();
-        //console.log("x: %s, y: %s, selected: %s", this.gridX, this.gridY, this.selected)
     }
     
     deselect(){

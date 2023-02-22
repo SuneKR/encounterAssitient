@@ -11,6 +11,7 @@
   "dependencies": {
     "async-preloader": "^8.0.2",
     "canvas-tint-image": "^2.1.0",
+    "dragselect": "^2.6.1",
     "get-canvas-context": "^1.0.2",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
