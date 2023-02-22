@@ -14,14 +14,18 @@ let cellSize = 75
 
 let tokens = []
 
-//const app = createApp(App);
+const app = createApp(App);
 
-//app.use(router);
+app.use(router);
 
-//app.mount("#app");
+app.mount("#app");
 
-canvas.width = Math.floor(window.innerWidth / cellSize) * cellSize
-canvas.height = Math.floor(window.innerHeight / cellSize) * cellSize
+canvas.cellInWidth = Math.floor(window.innerWidth / cellSize)
+canvas.width = canvas.cellInWidth * cellSize
+//canvas.width = canvas.cellWidth * cellSize
+canvas.cellInHeight = Math.floor(window.innerHeight / cellSize)
+canvas.height = canvas.cellInHeight * cellSize
+//canvas.height = Math.floor(window.innerHeight / cellSize)  * cellSize
 
 document.getElementById("board").style.marginLeft = "auto"
 document.getElementById("board").style.marginRight = "auto"
@@ -66,10 +70,10 @@ canvas.addEventListener('click', () => {
 
 
 window.addEventListener('keydown', function(event) {
-    console.log("%s",event.key)
+    //console.log("%s",event.key)
 
     const callback = {
-        "ArrowUp" : changeTokenPositionYplus, 
+        "ArrowUp" : changeTokenPositionYplus,
         "w" : changeTokenPositionYplus, 
         "ArrowLeft" : changeTokenPositionXminus, 
         "a" : changeTokenPositionXminus, 
@@ -77,23 +81,17 @@ window.addEventListener('keydown', function(event) {
         "d" : changeTokenPositionXplus, 
         "ArrowDown" : changeTokenPositionYminus, 
         "s" : changeTokenPositionYminus,
-    }[event.key]
+    }[event.code]
     callback?.()
 
-    console.log("result: %s",callback?.())
-
-
-    console.log("before update")
-
-    //console.log("%s/%s pressed",event.key, event.code)
     update()
 })
 
-function changeTokenPosition(changeX=1, changeY=0, callbacks){
+function changeTokenPosition(changeX=0, changeY=0){
     tokens.forEach(token => {
-        if(token==token.selected) {
-            token.gridX += changeX
-            token.gridY += changeY
+        if(token.selected) {
+            if(0 <= (token.gridX+changeX) && (token.gridX+changeX) < canvas.cellInWidth) {  token.gridX += changeX  }
+            if(0 <= (token.gridY+changeY) && (token.gridY+changeY) < canvas.cellInHeight) {  token.gridY += changeY  }
         }
     })
 }
@@ -106,7 +104,7 @@ function changeTokenPositionYminus(){  changeTokenPosition(0,(-1))  }
 class Token{
     tokenImage = new Image()
 
-    constructor(imageSource,gridX = Math.floor(Math.random() * Math.floor(window.innerWidth / cellSize)),gridY = Math.floor(Math.random() * Math.floor(window.innerHeight / cellSize)),tokenSize=1){
+    constructor(imageSource,gridX = Math.floor(Math.random() * canvas.cellInWidth),gridY = Math.floor(Math.random() * canvas.cellInHeight),tokenSize=1){
         this.tokenImage.src = "../tokens/" + imageSource + ".png" 
         this.gridX = gridX
         this.gridY = gridY
@@ -141,13 +139,7 @@ class Party {
         }
     }
 
-    firstTimeDepiction(){
-        tokens.forEach(token => {
-            token.tokenImage.onload = function(){  token.draw()  }
-        });
-    }
-
-    laterDepiction(){
+    depict(){
         tokens.forEach(token => {
             token.draw()
         });
@@ -174,13 +166,13 @@ function drawGrid(){
 function setupBoard(){
     party.setup()
     drawGrid()
-    party.firstTimeDepiction()
+    party.depict()
 }
 
 function update(){
     context.clearRect(0, 0, canvas.width, canvas.height)
     drawGrid()
-    party.laterDepiction()
+    party.depict()
 }
 
 const party = new Party()
