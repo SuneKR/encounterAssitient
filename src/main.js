@@ -66,40 +66,6 @@ canvas.addEventListener('click', () => {
 
 
 window.addEventListener('keydown', function(event) {
-    
-    //let appropiateToken = new Token
-    /*
-    tokens.forEach(token => {
-        console.log("testing %s", token.name)
-        if(token.selected) {  console.log("%s is selected",token.name); token.changePositionByKeyStroke(event)  }
-    })
-    const callback = {
-        "ArrowUp" : appropiateToken.changeRelativePosition(0,1), 
-        "KeyW" : appropiateToken.changeRelativePosition(0,1), 
-        "ArrowLeft" : appropiateToken.changeRelativePosition((-1),0), 
-        "KeyA" : appropiateToken.changeRelativePosition((-1),0), 
-        "ArrowRight" : appropiateToken.changeRelativePosition(1,0), 
-        "KeyD" : appropiateToken.changeRelativePosition(1,0), 
-        "ArrowDown" : appropiateToken.changeRelativePosition(0,(-1)), 
-        "KeyS" : appropiateToken.changeRelativePosition(0,(-1)),
-    }[event.key]
-    //console.log(appropiateToken)
-    let x = 0
-    let y = 0
-    
-    const callback = {
-        "ArrowUp" : heyheyhey, 
-        "KeyW" : y = 1,
-        "ArrowLeft" : x = -1,
-        "KeyA" : x = -1,
-        "ArrowRight" : x = 1,
-        "KeyD" : x = 1,
-        "ArrowDown" : y = -1,
-        "KeyS" : y = -1,
-    }[event.key]
-    callback?.()
-    */
-
     console.log("%s",event.key)
 
     const callback = {
@@ -108,9 +74,9 @@ window.addEventListener('keydown', function(event) {
         "ArrowLeft" : changeTokenPositionXminus, 
         "a" : changeTokenPositionXminus, 
         "ArrowRight" : changeTokenPositionXplus, 
-        "KeyD" : changeTokenPositionXplus, 
+        "d" : changeTokenPositionXplus, 
         "ArrowDown" : changeTokenPositionYminus, 
-        "KeyS" : changeTokenPositionYminus,
+        "s" : changeTokenPositionYminus,
     }[event.key]
     callback?.()
 
@@ -137,7 +103,6 @@ function changeTokenPositionXminus(){  changeTokenPosition((-1),0)  }
 function changeTokenPositionYplus(){  changeTokenPosition(0,1)  }
 function changeTokenPositionYminus(){  changeTokenPosition(0,(-1))  }
 
-
 class Token{
     tokenImage = new Image()
 
@@ -149,21 +114,6 @@ class Token{
         this.selected = false
         this.name = ("token%s", tokens.length+1)
     }
-
-    changePositionByKeyStroke(event) {
-        const callback = {
-            "ArrowUp" : this.changeRelativePosition(0,1), 
-            "KeyW" : this.changeRelativePosition(0,1), 
-            "ArrowLeft" : this.changeRelativePosition((-1),0), 
-            "KeyA" : this.changeRelativePosition((-1),0), 
-            "ArrowRight" : this.changeRelativePosition(1,0), 
-            "KeyD" : this.changeRelativePosition(1,0), 
-            "ArrowDown" : this.changeRelativePosition(0,(-1)), 
-            "KeyS" : this.changeRelativePosition(0,(-1)),
-        }[event.key]
-        callback?.()
-    }
-
 
     draw(){
         (async () => {
