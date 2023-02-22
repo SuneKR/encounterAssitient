@@ -22,14 +22,14 @@ app.mount("#app");
 
 canvas.cellInWidth = Math.floor(window.innerWidth / cellSize)
 canvas.width = canvas.cellInWidth * cellSize
-//canvas.width = canvas.cellWidth * cellSize
 canvas.cellInHeight = Math.floor(window.innerHeight / cellSize)
 canvas.height = canvas.cellInHeight * cellSize
-//canvas.height = Math.floor(window.innerHeight / cellSize)  * cellSize
 
 document.getElementById("board").style.marginLeft = "auto"
 document.getElementById("board").style.marginRight = "auto"
 canvas.style.display = "block"
+
+let multiSelect = false;
 
 const mouse = {
     x: innerWidth/2,
@@ -60,7 +60,7 @@ canvas.addEventListener('click', () => {
                 token.select()
             }
         }
-        else {
+        else if (!multiSelect) {
             token.deselect()
         }
     })
@@ -68,11 +68,8 @@ canvas.addEventListener('click', () => {
 })
 
 
-
 window.addEventListener('keydown', function(event) {
-    //console.log("%s",event.key)
-
-    const callback = {
+    const keyDownCallback = {
         "ArrowUp" : changeTokenPositionYplus,
         "w" : changeTokenPositionYplus, 
         "ArrowLeft" : changeTokenPositionXminus, 
@@ -81,10 +78,19 @@ window.addEventListener('keydown', function(event) {
         "d" : changeTokenPositionXplus, 
         "ArrowDown" : changeTokenPositionYminus, 
         "s" : changeTokenPositionYminus,
-    }[event.code]
-    callback?.()
+        "Shift" : multiSelectNow,
+    }[event.key]
+    keyDownCallback?.()
 
     update()
+})
+
+
+window.addEventListener('keyUp', function(event) {
+    const keyUpCallback = {
+        "Shift" : multiSelectLater,
+    }[event.key]
+    keyUpCallback?.()
 })
 
 function changeTokenPosition(changeX=0, changeY=0){
@@ -100,6 +106,9 @@ function changeTokenPositionXplus(){  changeTokenPosition(1,0)  }
 function changeTokenPositionXminus(){  changeTokenPosition((-1),0)  }
 function changeTokenPositionYplus(){  changeTokenPosition(0,1)  }
 function changeTokenPositionYminus(){  changeTokenPosition(0,(-1))  }
+
+function multiSelectNow(){  multiSelect = true  }
+function multiSelectLater(){  multiSelect = false  }
 
 class Token{
     tokenImage = new Image()
