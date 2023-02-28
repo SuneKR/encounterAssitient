@@ -1,23 +1,23 @@
 module.exports = mongoose => {
-    const token = mongoose.model(
-        "token",
-        mongoose.Schema(
-            {
-                tokenImage: String,
-                gridX: Int,
-                gridY: Int,
-                tokenSize: Int,
-            },
-            {  timestamps: true  }
-        )
+    const schema = mongoose.Schema(
+        {
+            tokenimagesource: String,
+            gridx: Number,
+            gridy: Number,
+            tokensize: Number,
+            selected: Boolean
+        },
+        {  timestamps: true  }
     )
+
     schema.method("toJSON", function() {
-        const {  __v, _id, ...object  } = this.toObject()
+        const { __v, _id, ...object } = this.toObject()
         object.id = _id
         return object
     })
 
-    return token
+    const Token = mongoose.model("token", schema)
+    return Token
 }
 
 

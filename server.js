@@ -2,7 +2,6 @@ const express = require("express")
 const bodyParser = require("body-parser")
 const cors = require("cors")
 
-
 const app = express()
 
 var corsOptions = {
@@ -23,6 +22,8 @@ database.mongoose
 app.get("/", (request, response) => {
   response.json({  message: "Welcome to battleAssistant"  })
 })
+
+require("./src/router/token.routes.js")(app)
 
 const PORT = process.env.PORT || 8080
 app.listen(PORT, () => {
