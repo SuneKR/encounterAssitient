@@ -8,36 +8,23 @@
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
-  "browser": {
-    "crypto": false
-  },
   "dependencies": {
     "async-preloader": "^8.0.2",
-    "axios": "^1.3.4",
-    "body-parser": "^1.20.2",
-    "browserify-zlib": "^0.2.0",
-    "buffer": "^6.0.3",
     "canvas-tint-image": "^2.1.0",
-    "cors": "^2.8.5",
-    "crypto-browserify": "^3.12.0",
+    "crypto": "^1.0.1",
     "crypto-js": "^4.1.1",
     "dragselect": "^2.6.1",
     "events": "^3.3.0",
-    "express": "^4.18.2",
     "get-canvas-context": "^1.0.2",
-    "javascript.util": "^0.12.12",
     "mongodb": "^5.0.1",
     "mongoose": "^6.10.0",
-    "process": "^0.11.10",
     "requirejs": "^2.3.6",
-    "stream-browserify": "^3.0.0",
     "util": "^0.12.5",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",
-    "@types/node": "^18.14.1",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vitejs/plugin-vue-jsx": "^3.0.0",
     "@vue/eslint-config-prettier": "^7.0.0",

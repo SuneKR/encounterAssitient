@@ -4,9 +4,16 @@ import router from "./router";
 import canvasTintImage from "canvas-tint-image"
 import getCanvasContext from "get-canvas-context"
 import AsyncPreloader from "async-preloader"
-import DragSelect from "dragselect";
+import DragSelect from "dragselect"
 
-import "./assets/main.css";
+Vue.config.productionTip = false
+
+new Vue({
+    router,
+    render: h => h(App),
+}).$mount('#app')
+
+//this._emitter.setMaxListeners(0)
 
 let canvas = document.getElementById("board")
 let context = canvas.getContext("2d")
@@ -15,11 +22,11 @@ let cellSize = 75
 
 let tokens = []
 
-const app = createApp(App);
+const app = createApp(App)
 
-app.use(router);
+app.use(router)
 
-app.mount("#app");
+app.mount("#app")
 
 canvas.cellInWidth = Math.floor(window.innerWidth / cellSize)
 canvas.width = canvas.cellInWidth * cellSize
@@ -37,7 +44,7 @@ const mouse = {
     y: innerHeight/2
 }
 
-addEventListener('resize', () => {
+addEventListener('resize', (event) => {
     location.reload()
 })
 
@@ -46,7 +53,7 @@ addEventListener('mousemove', (event) => {
     mouse.y = event.clientY
 })
 
-canvas.addEventListener('click', () => {
+canvas.addEventListener('click', (event) => {
     let currentX = Math.floor((mouse.x-canvas.getBoundingClientRect().left)/cellSize)
     let currentY = Math.floor((canvas.height-mouse.y+canvas.getBoundingClientRect().top)/cellSize)
 
@@ -61,7 +68,7 @@ canvas.addEventListener('click', () => {
                 token.select()
             }
         }
-        else if (!multiSelect) {
+        else if(!multiSelect) {
             token.deselect()
         }
     })
@@ -73,7 +80,7 @@ canvas.addEventListener('click', () => {
     update()
 })
 
-canvas.addEventListener('mousedown', () => {
+canvas.addEventListener('mousedown', (event) => {
     
     const selectedTokens = new DragSelect({        
         selectables: document.querySelectorAll('.token'),
@@ -81,7 +88,6 @@ canvas.addEventListener('mousedown', () => {
 
     selectedTokens.subscribe('callback', (e) => console.log(e))
 })
-
 
 window.addEventListener('keydown', function(event) {
     const keyDownCallback = {
