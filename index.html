@@ -8,11 +8,15 @@
     <link rel="shortcut icon" href="#">
 </head>
 <body>
+    Cell Size: <input type="range" id="cellSizeSlider" min="25" max="150" value="75" class="slider">
+    <button id="partyNew" class="button">New party</button>
+    <button id="partyDel" class="button">Retire party</button>
+    <button id="partyAdd" class="button">Add member</button>
+    <button id="memEnl" class="button">Enlarge member</button>
+    <button id="memRed" class="button">Reduce member</button>
+    <br>
     <canvas id="board" style="border: 2px solid"></canvas>
-    
-    <!-- <script type="text/javascript" src="script.js"></script> -->
-    <!--  <script src="script.js"></script>  -->
-    <!-- <script src="script.js" type="module"></script> -->
+       
     <script type="module" src="/src/main.js"></script>
 </body>
 </html>
