@@ -309,6 +309,10 @@ function drawGrid(){
     canvas.cellInHeight = Math.floor(window.innerHeight / cellSize)
     canvas.height = canvas.cellInHeight * cellSize
 
+    document.getElementById("board").style.marginLeft = "auto"
+    document.getElementById("board").style.marginRight = "auto"
+    canvas.style.display = "block"
+
     for (let x = 0; x <= canvas.width; x += cellSize) {
         context.moveTo(x,0)
         context.lineTo(x,canvas.height)
