@@ -41,20 +41,3 @@ const SPORT = process.env.PORT || 8443
 
 httpServer.listen(PORT, () => {  console.log(`Server is running on port ${PORT}.`)  })
 httpsServer.listen(SPORT, () => {  console.log(`Secure server is running on port ${SPORT}.`)  })
-
-/*
-https.createServer(corsOptions, (request, response) => {
-  response.writeHead(200)
-  response.end("Secure Mongolos engaced")
-}).listen(443)
-*/
-
-/*
-httpsServer.get("/", (request, response) => {
-  response.json({  message: "Welcome to the secure battleAssistant"  })
-})
-
-httpsServer.listen(443, () => {
-  console.log("Welcome to Battle https server")
-})
-*/
