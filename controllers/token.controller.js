@@ -66,6 +66,7 @@ exports.update = (request, response) => {
 
     Token.findByIdAndUpdate(id, request.body, {  useFindAndmodify: false  })
     .then(data => {  if(!data) {  response.status(404).send({  message: "No token with id: ${id}. Can't delete"  })  } else response.send({  message: "token updated"  })  })
+    .then(data => {  if(!data) {  response.status(404).send({  message: "No token with id: ${id}. Can't delete"  })  } else response.send({  message: "token updated"  })  })
     .catch(err => {  response.status(500).send({  message: "Error! Didn't update token with id: ${id}"  })  })
 }
 
@@ -84,15 +85,3 @@ exports.deleteAll = (request, response) => {
         .catch(err => {  response.status(500).send({  message: err.message || "Error occured while trying to delete all tokens"  })  })
 
 }
-
-
-/*
-constructor(imageSource, gridX = (Math.floor(Math.random()*canvas.cellInWidth)-1), gridY = (Math.floor(Math.random()*canvas.cellInHeight)-1), tokenSize = 1){
-        this.tokenImage.src = "../tokens/" + imageSource + ".png" 
-        this.gridX = gridX
-        this.gridY = gridY
-        this.tokenSize = tokenSize
-        this.selected = false
-        this.name = ("token%s", tokens.length+1)
-    }
-*/

@@ -8,7 +8,6 @@ const fs = require('fs')
 const app = express()
 
 var corsOptions = {
-  //origin: "http://localhost:5173"
   origin: ["http://localhost:5173", "http://localhost:8100"],
   default: "http://localhost:5173"
 }
